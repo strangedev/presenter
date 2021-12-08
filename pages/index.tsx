@@ -1,13 +1,13 @@
-import axios from 'axios'
-import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
-import { Slide } from '../components/Slide'
-import { ListSlidesResponse } from '../types/ListSlidesResponse'
+import axios from 'axios';
+import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import { ListSlidesResponse } from '../types/ListSlidesResponse';
+import { getSlidePageUrl } from '../utils/getSlidePageUrl';
 
 const Home: NextPage = () => {
   const { isLoading, error, data } = useQuery('listSlides',
-    () => axios.get('/api/listSlides').then(({data}) => data)
+    () => axios.get('/api/listSlides').then(({ data }) => data),
   );
 
   const router = useRouter();
@@ -23,19 +23,21 @@ const Home: NextPage = () => {
   const { slides } = data as any as ListSlidesResponse;
 
   return (
-    <ol>
-      {
-        Object.values(slides).map(({ id, path }) =>
-          <li
-            key={id}
-            onClick={() => router.push(`/slide/${id}`)}
-          >
-            {id}{ ' ' }{path}
-          </li>
-        )
-      }
-    </ol>
+    <>
+      <ol>
+        {
+          Object.values(slides).map((slide) =>
+            <li
+              key={ slide.id }
+              onClick={ () => router.push(getSlidePageUrl(slide)) }
+            >
+              { slide.id }{ ' ' }{ slide.path }
+            </li>,
+          )
+        }
+      </ol>
+    </>
   );
-}
+};
 
-export default Home
+export default Home;

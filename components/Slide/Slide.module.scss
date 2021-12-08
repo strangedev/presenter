@@ -1,0 +1,19 @@
+.markdown {
+  @apply px-8 max-w-screen-lg box-border mx-auto;
+
+  h1 {
+    @apply text-7xl py-3;
+  }
+
+  h2 {
+    @apply text-5xl py-2;
+  }
+
+  h3 {
+    @apply text-3xl py-1;
+  }
+
+  h4 {
+    @apply text-xl;
+  }
+}

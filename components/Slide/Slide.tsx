@@ -2,14 +2,8 @@ import { FunctionComponent } from 'react';
 import rehypeStringify from 'rehype-stringify/lib';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import styled from 'styled-components';
 import { unified } from 'unified';
-
-const StyledDiv = styled.div`
-  & h1 {
-    font-size: 26px;
-  }
-`;
+import styles from './Slide.module.scss';
 
 interface SlideProps {
   source: string;
@@ -21,12 +15,15 @@ const Slide: FunctionComponent<SlideProps> = ({ source }) => {
     .use(remarkRehype)
     .use(rehypeStringify)
     .processSync(source);
-  
+
   return (
-    <StyledDiv dangerouslySetInnerHTML={{ __html: String(vfile) }} />
-  )
-}; 
+    <div
+      className={ styles.markdown }
+      dangerouslySetInnerHTML={ { __html: String(vfile) } }
+    />
+  );
+};
 
 export {
-  Slide
-}
+  Slide,
+};

@@ -1,8 +1,7 @@
+import {Slides} from "./Slides";
+
 interface ListSlidesResponse {
-  slides: Record<string, {
-    id: string;
-    path: string;
-  }>;
+  slides: Slides;
 }
 
 export type {
