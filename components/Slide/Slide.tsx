@@ -1,8 +1,10 @@
-import { FunctionComponent } from 'react';
+import mermaid from 'mermaid';
+import { FunctionComponent, useLayoutEffect } from 'react';
 import rehypeStringify from 'rehype-stringify/lib';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
+import { mermaidPlugin } from '../../utils/mdExtensions/mermaidPlugin';
 import styles from './Slide.module.scss';
 
 interface SlideProps {
@@ -12,9 +14,19 @@ interface SlideProps {
 const Slide: FunctionComponent<SlideProps> = ({ source }) => {
   const vfile = unified()
     .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypeStringify)
+    .use(mermaidPlugin)
+    .use(remarkRehype, {
+      allowDangerousHtml: true,
+      handlers: {},
+    })
+    .use(rehypeStringify, {
+      allowDangerousHtml: true,
+    })
     .processSync(source);
+
+  useLayoutEffect(() => {
+    mermaid.contentLoaded();
+  }, []);
 
   return (
     <div

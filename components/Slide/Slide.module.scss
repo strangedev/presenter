@@ -16,4 +16,12 @@
   h4 {
     @apply text-xl;
   }
+
+  p {
+    @apply text-xl;
+  }
+
+  img {
+    @apply mx-auto max-w-xl;
+  }
 }
