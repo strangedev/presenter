@@ -1,5 +1,4 @@
-import mermaid from 'mermaid';
-import { FunctionComponent, useLayoutEffect } from 'react';
+import { FunctionComponent } from 'react';
 import rehypeStringify from 'rehype-stringify/lib';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -23,10 +22,6 @@ const Slide: FunctionComponent<SlideProps> = ({ source }) => {
       allowDangerousHtml: true,
     })
     .processSync(source);
-
-  useLayoutEffect(() => {
-    mermaid.contentLoaded();
-  }, []);
 
   return (
     <div

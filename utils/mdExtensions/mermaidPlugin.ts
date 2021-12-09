@@ -4,10 +4,13 @@ import { Plugin } from 'unified';
 import { is } from 'unist-util-is';
 import { CONTINUE, SKIP, visit } from 'unist-util-visit';
 
-mermaid.initialize({ startOnLoad: true });
+mermaid.initialize({ startOnLoad: true, theme: 'dark' });
 
 const mermaidPlugin: Plugin<[], mdast.Root, mdast.Root> = function () {
-  return async (tree, file) => {
+  // Due to SSR, we need to reset this on every run.
+  let diagramCounter = 0;
+
+  return (tree, file) => {
     visit(tree, (node, index, parent) => {
       if (!is<mdast.Code>(node, 'code')) {
         return CONTINUE;
@@ -16,13 +19,24 @@ const mermaidPlugin: Plugin<[], mdast.Root, mdast.Root> = function () {
         return CONTINUE;
       }
 
-      const svg = await new Promise(resolve => {
-        mermaid.render('graph', node.value, result => resolve(result))
+      const containerId = `diagram-${ diagramCounter++ }`;
+
+      mermaid.render('graph', node.value, svg => {
+        const mountSvg = () => {
+          const container = document.getElementById(containerId);
+          if (container !== null) {
+            container.innerHTML = svg;
+          } else {
+            setTimeout(mountSvg, 100);
+          }
+        };
+
+        mountSvg();
       });
 
       parent.children.splice(index, 1, {
         type: 'html',
-        value: svg,
+        value: `<div class="diagram" id="${ containerId }"/>`,
       });
 
       return [ SKIP, index ];

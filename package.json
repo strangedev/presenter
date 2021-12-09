@@ -10,6 +10,7 @@
   "dependencies": {
     "@types/mdast": "^3.0.10",
     "@types/mermaid": "^8.2.7",
+    "@types/uuid": "^8.3.3",
     "axios": "^0.24.0",
     "mdast": "^3.0.0",
     "mermaid": "^8.13.5",
@@ -27,6 +28,7 @@
     "unist-util-is": "^5.1.1",
     "unist-util-map": "^3.0.0",
     "unist-util-visit": "^4.1.0",
+    "uuid": "^8.3.2",
     "walk-file-tree": "^1.0.31"
   },
   "devDependencies": {
