@@ -4,8 +4,10 @@ import { Plugin } from 'unified';
 import { is } from 'unist-util-is';
 import { CONTINUE, SKIP, visit } from 'unist-util-visit';
 
+mermaid.initialize({ startOnLoad: true });
+
 const mermaidPlugin: Plugin<[], mdast.Root, mdast.Root> = function () {
-  return (tree, file) => {
+  return async (tree, file) => {
     visit(tree, (node, index, parent) => {
       if (!is<mdast.Code>(node, 'code')) {
         return CONTINUE;
@@ -14,9 +16,13 @@ const mermaidPlugin: Plugin<[], mdast.Root, mdast.Root> = function () {
         return CONTINUE;
       }
 
+      const svg = await new Promise(resolve => {
+        mermaid.render('graph', node.value, result => resolve(result))
+      });
+
       parent.children.splice(index, 1, {
         type: 'html',
-        value: `<div class="mermaid">${ node.value }</div>`,
+        value: svg,
       });
 
       return [ SKIP, index ];
