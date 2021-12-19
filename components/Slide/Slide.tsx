@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify/lib';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -16,8 +17,8 @@ const Slide: FunctionComponent<SlideProps> = ({ source }) => {
     .use(mermaidPlugin)
     .use(remarkRehype, {
       allowDangerousHtml: true,
-      handlers: {},
     })
+    .use(rehypeHighlight)
     .use(rehypeStringify, {
       allowDangerousHtml: true,
     })

@@ -1,20 +1,24 @@
 .markdown {
-  @apply px-8 max-w-screen-lg box-border mx-auto;
+  @apply px-8 pt-10 max-w-screen-lg box-border mx-auto;
+
+  > :first-child {
+    @apply pt-0;
+  }
 
   h1 {
-    @apply text-7xl py-3;
+    @apply text-7xl py-10;
   }
 
   h2 {
-    @apply text-5xl py-2;
+    @apply text-5xl py-5;
   }
 
   h3 {
-    @apply text-3xl py-1;
+    @apply text-3xl py-3;
   }
 
   h4 {
-    @apply text-xl;
+    @apply text-2xl py-1;
   }
 
   p {
@@ -23,5 +27,9 @@
 
   img {
     @apply mx-auto max-w-xl;
+  }
+
+  code {
+    @apply text-xl;
   }
 }
