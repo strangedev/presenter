@@ -4,6 +4,20 @@
 
 @import "diagrams";
 
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 400;
+  src: url("/fonts/Ubuntu-Regular.ttf");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-weight: 200;
+  src: url("/fonts/Ubuntu-Light.ttf");
+}
+
 body {
-  @apply bg-gray-600 text-white overflow-x-hidden;
+  @apply text-white overflow-x-hidden;
+  background-color: #222;
+  font-family: Ubuntu, sans-serif;
 }

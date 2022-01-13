@@ -26,7 +26,7 @@ const Home: NextPage = () => {
     <>
       <ol>
         {
-          Object.values(slides).map((slide) =>
+          Object.values(slides).sort({ p }).map((slide) =>
             <li
               key={ slide.id }
               onClick={ () => router.push(getSlidePageUrl(slide)) }
