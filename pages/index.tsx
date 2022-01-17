@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { ListSlidesResponse } from '../types/ListSlidesResponse';
+import { compareSlides } from '../types/Slides';
 import { getSlidePageUrl } from '../utils/getSlidePageUrl';
 
 const Home: NextPage = () => {
@@ -26,7 +27,7 @@ const Home: NextPage = () => {
     <>
       <ol>
         {
-          Object.values(slides).sort({ p }).map((slide) =>
+          Object.values(slides).sort(compareSlides).map((slide) =>
             <li
               key={ slide.id }
               onClick={ () => router.push(getSlidePageUrl(slide)) }

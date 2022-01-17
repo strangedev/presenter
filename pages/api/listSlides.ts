@@ -12,7 +12,7 @@ const startsWithOrdinal = function (name: string): boolean {
 };
 
 const getOrdinal = function (name: string): number[] {
-  return name.split('-')[0].split('.');
+  return name.split('-')[0].split('.').map((text): number => Number.parseInt(text));
 };
 
 const compareOrdinals = function (left: number[], right: number[]): number {

@@ -1,11 +1,6 @@
 import { Slide } from './Slide';
-import { SlideId } from './SlideId';
 
-type Slides = Record<string, {
-  id: SlideId;
-  path: string;
-  ordinal: number;
-}>;
+type Slides = Record<string, Slide>;
 
 const compareSlides = function (slide: Slide, other: Slide): number {
   return slide.ordinal - other.ordinal;
