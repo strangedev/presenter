@@ -1,28 +1,31 @@
 .markdown {
-  @apply px-8 pt-10 max-w-screen-lg box-border mx-auto;
+  @apply px-8 pt-10 max-w-screen-xl box-border mx-auto text-2xl;
 
   > :first-child {
     @apply pt-0;
   }
 
+  > * {
+    @apply py-8;
+  }
+
   h1 {
-    @apply text-7xl py-10;
+    @apply text-7xl my-4 py-4 text-center;
+
+    min-width: 100%;
+    border-bottom: #dd0099 1px solid;
   }
 
   h2 {
-    @apply text-5xl py-5;
+    @apply text-5xl py-4;
   }
 
   h3 {
-    @apply text-3xl py-3;
+    @apply text-3xl py-2;
   }
 
   h4 {
     @apply text-2xl py-1;
-  }
-
-  p {
-    @apply text-xl;
   }
 
   img {
@@ -30,6 +33,40 @@
   }
 
   code {
-    @apply text-xl;
+    @apply rounded-md;
+  }
+
+  code:not(pre code) {
+    @apply px-1;
+    background-color: #1a1a1a;
+  }
+
+  pre {
+    @apply py-2;
+    code {
+      @apply text-xl;
+      background-color: #1a1a1a;
+    }
+  }
+
+  ul {
+    @apply list-outside pl-8;
+  }
+
+  li {
+    @apply pb-2;
+  }
+
+  li ul:first-child {
+    @apply pt-2;
+  }
+
+  li::marker {
+    content: '⬢\00a0\00a0';
+    color: #dd0099;
+  }
+
+  li ul li::marker {
+    content: '⬡\00a0\00a0';
   }
 }

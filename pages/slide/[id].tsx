@@ -17,14 +17,14 @@ const SlidePage: FunctionComponent = () => {
 
   const slides: Slides | undefined = listSlidesQuery.isFetched ? listSlidesQuery.data.slides : undefined;
   const slide = slides ? slides[id] : undefined;
-  const path = slide ? slide.path : undefined;
+  const relativePath = slide ? slide.relativePath : undefined;
 
   const slideQuery = useQuery(id,
     () => axios
-      .get(`/slides/${ path }`)
-      .then(({ data }) => data),
+      .get(`/api/getSlideContent`, { params: { relativePath } })
+      .then(({ data }) => data.content),
     {
-      enabled: path !== undefined,
+      enabled: relativePath !== undefined,
     },
   );
 
