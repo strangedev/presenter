@@ -21,6 +21,6 @@ You can now open `http://localhost:3000`, where you should see an overview of th
 ## Supported Markdown Features
 
 - CommonMark
-- mermaidjs diagrams using a code block tagged with `mermaid`
+- mermaid diagrams using a code block tagged with `mermaid`
 - Remote images using the `![alt-text](URL)` syntax
 - Syntax highlighting
