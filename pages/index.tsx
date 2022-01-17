@@ -32,7 +32,7 @@ const Home: NextPage = () => {
               key={ slide.id }
               onClick={ () => router.push(getSlidePageUrl(slide)) }
             >
-              { slide.id }{ ' ' }{ slide.path }
+              { slide.id }{ ' ' }{ slide.relativePath }
             </li>,
           )
         }

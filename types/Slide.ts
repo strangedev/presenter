@@ -2,6 +2,6 @@ import { SlideId } from './SlideId';
 
 export interface Slide {
   id: SlideId;
-  path: string;
+  relativePath: string;
   ordinal: number;
 }

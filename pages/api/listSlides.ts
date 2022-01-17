@@ -4,8 +4,7 @@ import path from 'path';
 import { EntryType, walk } from 'walk-file-tree';
 import { ListSlidesResponse } from '../../types/ListSlidesResponse';
 import { Slide } from '../../types/Slide';
-
-const slidesDirectory = path.join(process.env.ROOT!, 'public', 'slides');
+import { getConfiguration } from '../../utils/getConfiguration';
 
 const startsWithOrdinal = function (name: string): boolean {
   return /\d+((\.)\d+)*-/ug.test(name);
@@ -41,6 +40,7 @@ export default async function listSlides (
   res: NextApiResponse<ListSlidesResponse>,
 ) {
   const slides: Slide[] = [];
+  const { slidesDirectory } = getConfiguration();
 
   for await (const file of walk({
     directory: slidesDirectory,
@@ -48,20 +48,20 @@ export default async function listSlides (
     matches: (filename) => filename.endsWith('md'),
     maximumDepth: 1,
   })) {
-    const relativeFilename = path.relative(slidesDirectory, file);
-    const id = createHash('sha1').update(relativeFilename).digest('hex');
+    const relativePath = path.relative(slidesDirectory, file);
+    const id = createHash('sha1').update(relativePath).digest('hex');
 
     slides.push({
       id,
-      path: relativeFilename,
+      relativePath,
       ordinal: 0,
     });
   }
 
   const sortedSlides = slides.sort(
     (left, right) => compareSlideNames(
-      path.basename(left.path),
-      path.basename(right.path),
+      path.basename(left.relativePath),
+      path.basename(right.relativePath),
     ),
   );
 
