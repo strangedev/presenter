@@ -15,6 +15,7 @@
     "highlight.js": "11.4.0",
     "mdast": "^3.0.0",
     "mermaid": "8.13.9",
+    "mime-types": "2.1.35",
     "next": "12.0.8",
     "processenv": "3.0.9",
     "react": "17.0.2",
@@ -35,6 +36,7 @@
     "walk-file-tree": "1.0.32"
   },
   "devDependencies": {
+    "@types/mime-types": "2.1.1",
     "@types/node": "16.11.12",
     "@types/react": "17.0.38",
     "autoprefixer": "10.4.2",

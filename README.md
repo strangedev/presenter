@@ -22,5 +22,5 @@ You can now open `http://localhost:3000`, where you should see an overview of th
 
 - CommonMark
 - mermaid diagrams using a code block tagged with `mermaid`
-- Remote images using the `![alt-text](URL)` syntax
+- Images using the `![alt-text](URL)` syntax
 - Syntax highlighting

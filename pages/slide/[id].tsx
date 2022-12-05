@@ -53,7 +53,10 @@ const SlidePage: FunctionComponent = () => {
 
   return (
     <>
-      <Slide source={ sourceCode }/>
+      <Slide
+        slide={ slide }
+        source={ sourceCode }
+      />
       <Navbar
         slides={ slides! }
         currentSlide={ slide! }
