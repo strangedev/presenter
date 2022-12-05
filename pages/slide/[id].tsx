@@ -51,6 +51,10 @@ const SlidePage: FunctionComponent = () => {
   const nextSlide = sortedSlides[nextSlideIndex];
   const previousSlide = sortedSlides[previousSlideIndex];
 
+  if (slide === undefined) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <>
       <Slide
