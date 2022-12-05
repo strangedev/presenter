@@ -7,43 +7,47 @@ import { CONTINUE, SKIP, visit } from 'unist-util-visit';
 mermaid.initialize({ startOnLoad: true, theme: 'dark' });
 
 const mermaidPlugin: Plugin<[], mdast.Root, mdast.Root> = function () {
-  // Due to SSR, we need to reset this on every run.
-  let diagramCounter = 0;
+	// Due to SSR, we need to reset this on every run.
+	let diagramCounter = 0;
 
-  return (tree, file) => {
-    visit(tree, (node, index, parent) => {
-      if (!is<mdast.Code>(node, 'code')) {
-        return CONTINUE;
-      }
-      if (node.lang !== 'mermaid') {
-        return CONTINUE;
-      }
+	return (tree, file) => {
+		visit(tree, (node, index, parent) => {
+			if (!is<mdast.Code>(node, 'code')) {
+				return CONTINUE;
+			}
+			if (node.lang !== 'mermaid') {
+				return CONTINUE;
+			}
 
-      const containerId = `diagram-${ diagramCounter++ }`;
+			const containerId = `diagram-${ diagramCounter++ }`;
 
-      mermaid.render('graph', node.value, svg => {
-        const mountSvg = () => {
-          const container = document.getElementById(containerId);
-          if (container !== null) {
-            container.innerHTML = svg;
-          } else {
-            setTimeout(mountSvg, 100);
-          }
-        };
+			if (parent === null || index === null) {
+				return CONTINUE;
+			}
 
-        mountSvg();
-      });
+			mermaid.render('graph', node.value, svg => {
+				const mountSvg = () => {
+					const container = document.getElementById(containerId);
+					if (container !== null) {
+						container.innerHTML = svg;
+					} else {
+						setTimeout(mountSvg, 100);
+					}
+				};
 
-      parent.children.splice(index, 1, {
-        type: 'html',
-        value: `<div class="diagram" id="${ containerId }"/>`,
-      });
+				mountSvg();
+			});
 
-      return [ SKIP, index ];
-    });
-  };
+			parent.children.splice(index, 1, {
+				type: 'html',
+				value: `<div class="diagram" id="${ containerId }"/>`,
+			});
+
+			return [ SKIP, index ];
+		});
+	};
 };
 
 export {
-  mermaidPlugin,
+	mermaidPlugin,
 };

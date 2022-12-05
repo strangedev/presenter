@@ -51,9 +51,16 @@ const SlidePage: FunctionComponent = () => {
   const nextSlide = sortedSlides[nextSlideIndex];
   const previousSlide = sortedSlides[previousSlideIndex];
 
+  if (slide === undefined) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <>
-      <Slide source={ sourceCode }/>
+      <Slide
+        slide={ slide }
+        source={ sourceCode }
+      />
       <Navbar
         slides={ slides! }
         currentSlide={ slide! }
